@@ -1,0 +1,12 @@
+.DS_Store
+public/*
+!public/.gitkeep
+source/css/*.css
+source/css/*.css.map
+config.ini
+latest-change.txt
+*-ck.js
+*.sass-cache/
+bower_components
+node_modules
+.tmp/
