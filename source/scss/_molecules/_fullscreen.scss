@@ -1,0 +1,26 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------*\
+    $FULLSCREEN
+\*----------------------------------------------------------------------------*/
+
+.fullscreen {
+    position: relative;
+    height: 100vh;
+    @include rem(min-height, $space*10);
+    transition: height $default-duration-medium;
+}
+    .fullscreen__center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        max-width: 75%;
+        transform: translate(-50%, -50%);
+    }
+
+
+
+.fullscreen--giftie {
+    &.is-active {
+        @include rem(height, $space*15);
+    }
+}

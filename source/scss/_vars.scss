@@ -17,6 +17,7 @@
 \*----------------------------------------------------------------------------*/
 
 $face-base: "Proxima", sans-serif !default;
+$face-icon: "feather"!default;
 
 /*  Responsive
 \*----------------------------------------------------------------------------*/
@@ -42,3 +43,12 @@ $black: #000000 !default;
 $gray-a: #373737 !default;
 $gray-b: #afafaf !default;
 $white: #ffffff !default;
+$brand: #009774 !default;
+
+
+/*  Durations
+\*----------------------------------------------------------------------------*/
+
+$default-duration: .2s;
+$default-duration-medium: .4s;
+$default-duration-long: .6s;

@@ -4,6 +4,10 @@
 \*----------------------------------------------------------------------------*/
 
 .masthead {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     @include rem(padding, $space-half);
     background-color: $black;
 }
