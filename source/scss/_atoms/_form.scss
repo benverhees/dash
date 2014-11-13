@@ -1,0 +1,16 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------*\
+    $FORM
+\*----------------------------------------------------------------------------*/
+
+.input {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    margin:  0;
+    border: none;
+    overflow: visible;
+    font: inherit;
+    cursor: pointer;
+    color: $gray-a;
+}

@@ -2,8 +2,8 @@
   "name": "webapp-test",
   "private": true,
   "dependencies": {
-    "jquery": "~2.1.1",
-    "modernizr": "~2.8.2",
-    "blocss": "~5.0.5"
+    "blocss": "~5.0.6",
+    "angularjs": "~1.3.2",
+    "d3": "~3.4.13"
   }
 }

@@ -13,6 +13,19 @@
     Place any variables that should override blocss’ defaults here.
 \*----------------------------------------------------------------------------*/
 
+/*  Typography
+\*----------------------------------------------------------------------------*/
+
+$face-base: "Proxima", sans-serif !default;
+
+/*  Responsive
+\*----------------------------------------------------------------------------*/
+
+$breakpoints: (
+    'lap'       '(min-width: 480px)',
+    'desk'      '(min-width: 960px)'
+);
+
 
 
 
@@ -21,3 +34,11 @@
     $CUSTOM
     Place any of your own variables that sit on top of blocss here.
 \*----------------------------------------------------------------------------*/
+
+/*  Colors
+\*----------------------------------------------------------------------------*/
+
+$black: #000000 !default;
+$gray-a: #373737 !default;
+$gray-b: #afafaf !default;
+$white: #ffffff !default;

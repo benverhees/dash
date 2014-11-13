@@ -1,0 +1,23 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------*\
+    $TOPLEVEL
+\*----------------------------------------------------------------------------*/
+
+html {
+    font-family: $face-base;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    font-weight: 500;
+}
+
+html, body { height: 100%; }
+
+.wrapper {
+    position: relative;
+    min-height: 100%;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    background-color: $gray-a;
+    color: $white;
+}
