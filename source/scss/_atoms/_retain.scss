@@ -52,3 +52,7 @@
     @include rem(right, $space-half);
     transform: translateY(-50%);
 }
+
+.sign--biggie {
+    @include rem(margin-bottom, $space*4);
+}
