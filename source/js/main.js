@@ -225,8 +225,8 @@ var pie = {
                     data2: '#009774',
                 },
                 names: {
-                    data1: 'Goddamn batman',
-                    data2: 'Avengers',
+                    data1: 'Nieuw',
+                    data2: 'Terugkerend',
                 }
             }
         });
@@ -239,7 +239,7 @@ var bar = {
             bindto: '.js--bar',
             data: {
                 columns: [
-                    ['data1', 30, 200, 100, 400, 150, 250]
+                    ['data1', 30, 200, 100, 400, 150, 250, 120, 350]
                 ],
                 type: 'bar',
                 colors: {
@@ -247,8 +247,8 @@ var bar = {
                     data2: '#7fcbb9',
                 },
                 names: {
-                    data1: 'Goddamn batman',
-                    data2: 'Avengers'
+                    data1: 'Bezoek',
+                    data2: '% nieuw verkeer'
                 }
             },
             bar: {
@@ -263,7 +263,7 @@ var bar = {
         chart.load({
             type: 'line',
             columns: [
-                ['data2', 15, 100, 150, 366, 170, 230],
+                ['data2', 15, 100, 150, 366, 170, 230, 170, 210],
             ]
         });
     }
@@ -312,6 +312,9 @@ var giftie = {
             if (string.indexOf(words[length])!=-1) {
                 // one of the substrings is in yourstring
                 $('.js--wrappert').addClass('is-shifted');
+                $('.js--wrappert').click(function(){
+                    $('.js--wrappert').removeClass('is-shifted');
+                });
                 return true;
                 break;
             }

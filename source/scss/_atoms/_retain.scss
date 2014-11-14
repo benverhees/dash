@@ -66,4 +66,26 @@
         background-color: $brand;
         border-color: $brand;
     }
+
+    letter-spacing: .1em;
 }
+
+
+.sjart {
+    position: relative;
+
+    &:hover {
+        .sjart__add {
+            display: block;
+        }
+    }
+}
+    .sjart__add {
+        position: absolute;
+        top: 0;
+        @include rem(right, $space);
+        z-index: 50;
+        padding-left: .5em;
+        padding-right: .5em;
+        display: none;
+    }
