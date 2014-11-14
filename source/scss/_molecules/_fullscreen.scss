@@ -21,6 +21,6 @@
 
 .fullscreen--giftie {
     &.is-active {
-        @include rem(height, $space*15);
+        @include rem(height, $space*20);
     }
 }

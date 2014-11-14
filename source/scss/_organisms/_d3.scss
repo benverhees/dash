@@ -1,0 +1,21 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------*\
+    $D3
+\*----------------------------------------------------------------------------*/
+
+.c3-chart-arc path {
+    stroke: transparent;
+}
+
+.c3-legend-item text {
+    stroke: $white;
+}
+
+
+.c3-arc-Consectetur-adipisicing {
+    fill: $brand !important;
+}
+
+.c3-arc-Lorem-ipsum-dolor {
+    fill: $brand-sec !important;
+}

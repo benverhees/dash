@@ -1,0 +1,15 @@
+{
+    "columns": [
+        ["data1", 30],
+        ["data2", 120],
+    ],
+    "type" : "pie",
+    "colors": {
+        "data1": "#009774",
+        "data2": "#7fcbb9",
+    },
+    "names": {
+        "data1": "Goddamn batman",
+        "data2": "Avengers",
+    }
+}

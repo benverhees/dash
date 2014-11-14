@@ -12,6 +12,7 @@
         @include rem(padding, $space-half $space);
         @include font-size($alpha);
         border: none;
+        @include rem(border-radius, $space-half/2 0 0 $space-half/2);
     }
     .giftie__gift-dan {
         color: $gray-a;

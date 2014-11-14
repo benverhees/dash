@@ -46,8 +46,8 @@ module.exports = function (grunt) {
                 }
             },
             js: {
-                files: ['<%= config.app %>/scripts/{,*/}*.js'],
-                tasks: ['jshint', 'exec:patternlab'],
+                files: ['<%= config.app %>/js/{,*/}*.{js,json}'],
+                tasks: ['exec:patternlab'],
                 options: {
                     spawn: false,
                     livereload: true
