@@ -314,3 +314,187 @@ pie.init();
 bar.init();
 highlightText.init();
 giftie.init();
+
+var clientId = '641565182987-fdf1uba1iqp4gpje54hc9kdb0doaovqh.apps.googleusercontent.com';
+
+var apiKey = 'AIzaSyC4X3Q3_VXempuBLnW1Q8rifsf1-9gr15g';
+
+var scopes = 'https://www.googleapis.com/auth/analytics.readonly';
+
+// This function is called after the Client Library has finished loading
+function handleClientLoad() {
+  // 1. Set the API Key
+  gapi.client.setApiKey(apiKey);
+
+  // 2. Call the function that checks if the user is Authenticated. This is defined in the next section
+  window.setTimeout(checkAuth,1);
+}
+
+function checkAuth() {
+  // Call the Google Accounts Service to determine the current user's auth status.
+  // Pass the response to the handleAuthResult callback function
+  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: true}, handleAuthResult);
+}
+
+function handleAuthResult(authResult) {
+  if (authResult) {
+    // The user has authorized access
+    // Load the Analytics Client. This function is defined in the next section.
+    loadAnalyticsClient();
+  } else {
+    // User has not Authenticated and Authorized
+    handleUnAuthorized();
+  }
+}
+
+
+// Authorized user
+function handleAuthorized() {
+  var authorizeButton = document.getElementById('authorize-button');
+  var makeApiCallButton = document.getElementById('make-api-call-button');
+
+  // Show the 'Get Sessions' button and hide the 'Authorize' button
+  makeApiCallButton.style.visibility = '';
+  authorizeButton.style.visibility = 'hidden';
+
+  // When the 'Get Sessions' button is clicked, call the makeAapiCall function
+  makeApiCallButton.onclick = makeApiCall;
+}
+
+
+// Unauthorized user
+function handleUnAuthorized() {
+  var authorizeButton = document.getElementById('authorize-button');
+  var makeApiCallButton = document.getElementById('make-api-call-button');
+
+  // Show the 'Authorize Button' and hide the 'Get Sessions' button
+  makeApiCallButton.style.visibility = 'hidden';
+  authorizeButton.style.visibility = '';
+
+  // When the 'Authorize' button is clicked, call the handleAuthClick function
+  authorizeButton.onclick = handleAuthClick;
+}
+
+function handleAuthClick(event) {
+  gapi.auth.authorize({client_id: clientId, scope: scopes, immediate: false}, handleAuthResult);
+  return false;
+}
+
+function loadAnalyticsClient() {
+  // Load the Analytics client and set handleAuthorized as the callback function
+  gapi.client.load('analytics', 'v3', handleAuthorized);
+}
+
+function makeApiCall() {
+  queryAccounts();
+}
+
+function queryAccounts() {
+  console.log('Querying Accounts.');
+
+  // Get a list of all Google Analytics accounts for this user
+  gapi.client.analytics.management.accounts.list().execute(handleAccounts);
+}
+
+function handleAccounts(results) {
+  if (!results.code) {
+    if (results && results.items && results.items.length) {
+
+      // Get the first Google Analytics account
+      var firstAccountId = results.items[0].id;
+
+      // Query for Web Properties
+      queryWebproperties(firstAccountId);
+
+    } else {
+      console.log('No accounts found for this user.')
+    }
+  } else {
+    console.log('There was an error querying accounts: ' + results.message);
+  }
+}
+
+function queryWebproperties(accountId) {
+  console.log('Querying Webproperties.');
+
+  // Get a list of all the Web Properties for the account
+  gapi.client.analytics.management.webproperties.list({'accountId': accountId}).execute(handleWebproperties);
+}
+
+function handleWebproperties(results) {
+  if (!results.code) {
+    if (results && results.items && results.items.length) {
+
+      // Get the first Google Analytics account
+      var firstAccountId = results.items[0].accountId;
+
+      // Get the first Web Property ID
+      var firstWebpropertyId = results.items[0].id;
+
+      // Query for Views (Profiles)
+      queryProfiles(firstAccountId, firstWebpropertyId);
+
+    } else {
+      console.log('No webproperties found for this user.');
+    }
+  } else {
+    console.log('There was an error querying webproperties: ' + results.message);
+  }
+}
+
+function queryProfiles(accountId, webpropertyId) {
+  console.log('Querying Views (Profiles).');
+
+  // Get a list of all Views (Profiles) for the first Web Property of the first Account
+  gapi.client.analytics.management.profiles.list({
+      'accountId': accountId,
+      'webPropertyId': webpropertyId
+  }).execute(handleProfiles);
+}
+
+function handleProfiles(results) {
+  if (!results.code) {
+    if (results && results.items && results.items.length) {
+
+      // Get the first View (Profile) ID
+      var firstProfileId = results.items[0].id;
+
+      // Step 3. Query the Core Reporting API
+      queryCoreReportingApi(firstProfileId);
+
+    } else {
+      console.log('No views (profiles) found for this user.');
+    }
+  } else {
+    console.log('There was an error querying views (profiles): ' + results.message);
+  }
+}
+
+function queryCoreReportingApi(profileId) {
+  console.log('Querying Core Reporting API.');
+
+  // Use the Analytics Service Object to query the Core Reporting API
+  gapi.client.analytics.data.ga.get({
+    'ids': 'ga:' + profileId,
+    'start-date': '2012-03-03',
+    'end-date': '2012-03-03',
+    'metrics': 'ga:sessions'
+  }).execute(handleCoreReportingResults);
+}
+
+function handleCoreReportingResults(results) {
+  if (results.error) {
+    console.log('There was an error querying core reporting API: ' + results.message);
+  } else {
+    printResults(results);
+  }
+}
+
+function printResults(results) {
+  if (results.rows && results.rows.length) {
+    console.log('View (Profile) Name: ', results.profileInfo.profileName);
+    console.log('Total Sessions: ', results.rows[0][0]);
+  } else {
+    console.log('No results found');
+  }
+}
