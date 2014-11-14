@@ -4,6 +4,6 @@
 \*----------------------------------------------------------------------------*/
 
 .retain {
-    @include rem(padding, 0 $space);
+    @include rem(padding, 0 $space-half);
     margin: 0 auto;
 }

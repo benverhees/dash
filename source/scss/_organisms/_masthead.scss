@@ -8,6 +8,6 @@
     top: 0;
     left: 0;
     width: 100%;
-    @include rem(padding, $space-half);
+    @include rem(padding, $space-half 0);
     background-color: $black;
 }

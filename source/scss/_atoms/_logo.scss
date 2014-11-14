@@ -7,6 +7,8 @@
     display: block;
     @include rem(width, 50px);
     @include rem(height, 50px);
+    @include rem(padding, $space-half/4);
+    background-color: $white;
 }
 
 .logo--brand {
