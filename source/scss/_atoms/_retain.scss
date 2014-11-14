@@ -56,3 +56,14 @@
 .sign--biggie {
     @include rem(margin-bottom, $space*4);
 }
+
+
+.button {
+    @include rem(border-radius, $space-half/2);
+    text-transform: uppercase;
+
+    &:hover {
+        background-color: $brand;
+        border-color: $brand;
+    }
+}
