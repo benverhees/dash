@@ -362,7 +362,7 @@ function checkAuth() {
 }
 
 function handleAuthResult(authResult) {
-  if (authResult) {
+  if (authResult && !authResult.error) {
     // The user has authorized access
     // Load the Analytics Client. This function is defined in the next section.
     loadAnalyticsClient();
@@ -375,11 +375,8 @@ function handleAuthResult(authResult) {
 
 // Authorized user
 function handleAuthorized() {
-  var authorizeButton = document.getElementById('authorize-button');
-
-  // Show the 'Get Sessions' button and hide the 'Authorize' button
-  authorizeButton.style.visibility = 'hidden';
-
+  $('#authorizeButton').addClass('visuallyhidden');
+  $('#jsloginvisual').removeClass('visuallyhidden');
   makeApiCall();
 }
 
@@ -387,11 +384,11 @@ function handleAuthorized() {
 // Unauthorized user
 function handleUnAuthorized() {
   var authorizeButton = document.getElementById('authorize-button');
-
+  var jsLoginVisual = document.getElementById('jsloginvisual');
   // Show the 'Authorize Button' and hide the 'Get Sessions' button
-  makeApiCallButton.style.visibility = 'hidden';
-  authorizeButton.style.visibility = '';
 
+  $('#authorize-button').removeClass('visuallyhidden');
+  $('#jsloginvisual').addClass('visuallyhidden');
   // When the 'Authorize' button is clicked, call the handleAuthClick function
   authorizeButton.onclick = handleAuthClick;
 }
