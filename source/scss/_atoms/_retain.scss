@@ -36,6 +36,10 @@
         transform: translateX(-50%);
     }
 }
+
+.tooltip {
+    display: none;
+}
     .wrappert__cell {
         width: 50%;
         float: left;
