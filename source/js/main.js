@@ -3,8 +3,21 @@
 \*----------------------------------------------------------------------------*/
 
 var map = {
-    init: function(){
+    array2object: function(data){
+
+      var collection = data.slice(); // make a copy
+      var key = collection.shift();
+
+      collection = collection.map(function (e) {
+          var obj = {};
+          obj[key.toLowerCase()] = e;
+          return obj;
+      });
+      return collection[0];
+    },
+    init: function(results){
         d3.select(window).on("resize", throttle);
+        var result = results.rows.map(function(row){ return map.array2object(row)});
 
         var zoom = d3.behavior.zoom()
             .scaleExtent([1, 9])
@@ -55,8 +68,21 @@ var map = {
           return Math.floor(Math.random() * (max - min)) + min;
         }
 
-        var fill = d3.scale.log()
-          .domain([10, 500])
+        function getValueByName(name) {
+          //return result[name.toLowerCase()];
+          var countries = results.rows.filter(function(row){return row[0].toLowerCase() == name.toLowerCase()});
+          if(countries.length === 0){
+            console.log("No data for " + name);
+            return 0;
+          }
+          return countries[0] && countries[0][1] ? countries[0][1] : 0;
+        }
+
+        var max = Math.max.apply(null, results.rows.map(function(row){return row[1]}));
+        var min = Math.min.apply(null, results.rows.map(function(row){return row[1]}));
+
+        var fill = d3.scale.linear()
+          .domain([min, max])
           .range(['#e5f4f1', '#009774']);
 
         function draw(topo) {
@@ -80,7 +106,7 @@ var map = {
               .attr("d", path)
               .attr("id", function(d,i) { return d.id; })
               .attr("title", function(d,i) { return d.properties.name; })
-              .style("fill", function(d, i) { return fill(getRandomInt(10, 500)) });
+              .style("fill", function(d, i) { return fill(getValueByName(d.properties.name)) });
 
           //offsets for tooltips
           var offsetL = document.getElementById('js--map').offsetLeft+20;
@@ -309,7 +335,6 @@ var highlightText = {
 }
 
 
-map.init();
 pie.init();
 bar.init();
 highlightText.init();
@@ -351,21 +376,17 @@ function handleAuthResult(authResult) {
 // Authorized user
 function handleAuthorized() {
   var authorizeButton = document.getElementById('authorize-button');
-  var makeApiCallButton = document.getElementById('make-api-call-button');
 
   // Show the 'Get Sessions' button and hide the 'Authorize' button
-  makeApiCallButton.style.visibility = '';
   authorizeButton.style.visibility = 'hidden';
 
-  // When the 'Get Sessions' button is clicked, call the makeAapiCall function
-  makeApiCallButton.onclick = makeApiCall;
+  makeApiCall();
 }
 
 
 // Unauthorized user
 function handleUnAuthorized() {
   var authorizeButton = document.getElementById('authorize-button');
-  var makeApiCallButton = document.getElementById('make-api-call-button');
 
   // Show the 'Authorize Button' and hide the 'Get Sessions' button
   makeApiCallButton.style.visibility = 'hidden';
@@ -399,9 +420,8 @@ function queryAccounts() {
 function handleAccounts(results) {
   if (!results.code) {
     if (results && results.items && results.items.length) {
-
       // Get the first Google Analytics account
-      var firstAccountId = results.items[0].id;
+      var firstAccountId = results.items[1].id;
 
       // Query for Web Properties
       queryWebproperties(firstAccountId);
@@ -424,7 +444,6 @@ function queryWebproperties(accountId) {
 function handleWebproperties(results) {
   if (!results.code) {
     if (results && results.items && results.items.length) {
-
       // Get the first Google Analytics account
       var firstAccountId = results.items[0].accountId;
 
@@ -455,9 +474,8 @@ function queryProfiles(accountId, webpropertyId) {
 function handleProfiles(results) {
   if (!results.code) {
     if (results && results.items && results.items.length) {
-
       // Get the first View (Profile) ID
-      var firstProfileId = results.items[0].id;
+      var firstProfileId = results.items[1].id;
 
       // Step 3. Query the Core Reporting API
       queryCoreReportingApi(firstProfileId);
@@ -476,9 +494,10 @@ function queryCoreReportingApi(profileId) {
   // Use the Analytics Service Object to query the Core Reporting API
   gapi.client.analytics.data.ga.get({
     'ids': 'ga:' + profileId,
-    'start-date': '2012-03-03',
-    'end-date': '2012-03-03',
-    'metrics': 'ga:sessions'
+    'dimensions': 'ga:country',
+    'metrics': 'ga:goalCompletionsAll',
+    'start-date': '2011-11-14',
+    'end-date': '2014-11-14'
   }).execute(handleCoreReportingResults);
 }
 
@@ -492,8 +511,7 @@ function handleCoreReportingResults(results) {
 
 function printResults(results) {
   if (results.rows && results.rows.length) {
-    console.log('View (Profile) Name: ', results.profileInfo.profileName);
-    console.log('Total Sessions: ', results.rows[0][0]);
+    map.init(results);
   } else {
     console.log('No results found');
   }
