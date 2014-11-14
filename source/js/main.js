@@ -15,6 +15,7 @@ var map = {
       });
       return collection[0];
     },
+
     init: function(results){
         d3.select(window).on("resize", throttle);
         var result = results.rows.map(function(row){ return map.array2object(row)});
@@ -48,7 +49,7 @@ var map = {
               .call(zoom)
               .on("click", click)
               .append("g");
-
+              
           g = svg.append("g");
 
         }
@@ -389,7 +390,7 @@ function handleUnAuthorized() {
   var authorizeButton = document.getElementById('authorize-button');
   var jsLoginVisual = document.getElementById('jsloginvisual');
   // Show the 'Authorize Button' and hide the 'Get Sessions' button
-
+  
   $('#authorize-button').removeClass('visuallyhidden');
   $('#jsloginvisual').addClass('visuallyhidden');
   // When the 'Authorize' button is clicked, call the handleAuthClick function
