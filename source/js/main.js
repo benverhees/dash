@@ -49,7 +49,7 @@ var map = {
               .call(zoom)
               .on("click", click)
               .append("g");
-              
+
           g = svg.append("g");
 
         }
@@ -278,7 +278,8 @@ var giftie = {
         var $form = $('.js--giftie__form', $wrapper);
         var $input = $('.js--giftie__input', $form);
         var $innerWrap = $('.js--giftie__wrap', $wrapper);
-        $form.submit(function(){
+        $form.submit(function(e){
+            e.preventDefault();
             // extract words, mix and match, retrieve information
 
             // highlight the stuff
@@ -390,7 +391,7 @@ function handleUnAuthorized() {
   var authorizeButton = document.getElementById('authorize-button');
   var jsLoginVisual = document.getElementById('jsloginvisual');
   // Show the 'Authorize Button' and hide the 'Get Sessions' button
-  
+
   $('#authorize-button').removeClass('visuallyhidden');
   $('#jsloginvisual').addClass('visuallyhidden');
   // When the 'Authorize' button is clicked, call the handleAuthClick function
