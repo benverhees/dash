@@ -9,6 +9,7 @@
     "d3": "~3.4.13",
     "topojson": "~1.6.18",
     "c3": "~0.3.0",
-    "jquery-highlighttextarea": "~3.1.0"
+    "jquery-highlighttextarea": "~3.1.0",
+    "angular-googleapi": "~0.0.2"
   }
 }
