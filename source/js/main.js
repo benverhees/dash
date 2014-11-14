@@ -375,7 +375,7 @@ function handleAuthResult(authResult) {
 
 // Authorized user
 function handleAuthorized() {
-  $('#authorizeButton').addClass('visuallyhidden');
+  $('#authorize-button').addClass('visuallyhidden');
   $('#jsloginvisual').removeClass('visuallyhidden');
   makeApiCall();
 }
