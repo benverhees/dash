@@ -280,7 +280,7 @@ var giftie = {
     alsEenMalle: function(string){
         var self = this;
 
-        var words = ['Gift ie', 'Geeft ie', 'Gift'];
+        var words = ['Geeft', 'Gift', 'gift', 'geeft'];
         var length = words.length;
         while(length--) {
             if (string.indexOf(words[length])!=-1) {

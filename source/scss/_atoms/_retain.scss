@@ -44,3 +44,11 @@
         width: 50%;
         float: left;
     }
+
+
+.login {
+    position: absolute;
+    top: 50%;
+    @include rem(right, $space-half);
+    transform: translateY(-50%);
+}
