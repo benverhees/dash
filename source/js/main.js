@@ -49,6 +49,16 @@ var map = {
 
         });
 
+        // Returns a random integer between min (included) and max (excluded)
+        // Using Math.round() will give you a non-uniform distribution!
+        function getRandomInt(min, max) {
+          return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        var fill = d3.scale.log()
+          .domain([10, 500])
+          .range(['#e5f4f1', '#009774']);
+
         function draw(topo) {
 
           svg.append("path")
@@ -70,7 +80,7 @@ var map = {
               .attr("d", path)
               .attr("id", function(d,i) { return d.id; })
               .attr("title", function(d,i) { return d.properties.name; })
-              .style("fill", function(d, i) { return d.properties.color; });
+              .style("fill", function(d, i) { return fill(getRandomInt(10, 500)) });
 
           //offsets for tooltips
           var offsetL = document.getElementById('js--map').offsetLeft+20;
@@ -89,18 +99,7 @@ var map = {
               })
               .on("mouseout",  function(d,i) {
                 tooltip.classed("hidden", true);
-              });
-
-
-          //EXAMPLE: adding some capitals from external CSV file
-          d3.csv("data/country-capitals.csv", function(err, capitals) {
-
-            capitals.forEach(function(i){
-              addpoint(i.CapitalLongitude, i.CapitalLatitude, i.CapitalName );
-            });
-
-          });
-
+              });          
         }
 
 
