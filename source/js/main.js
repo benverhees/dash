@@ -206,8 +206,90 @@ var pie = {
             }
         });
     }
+};
+
+var bar = {
+    init: function (){
+        var chart = c3.generate({
+            bindto: '.js--bar',
+            data: {
+                columns: [
+                    ['data1', 30, 200, 100, 400, 150, 250]
+                ],
+                type: 'bar',
+                colors: {
+                    data1: '#009774',
+                    data2: '#7fcbb9',
+                },
+                names: {
+                    data1: 'Goddamn batman',
+                    data2: 'Avengers'
+                }
+            },
+            bar: {
+                width: {
+                    ratio: 0.8 // this makes bar width 50% of length between ticks
+                }
+                // or
+                //width: 100 // this makes bar width 100px
+            }
+        });
+
+        chart.load({
+            type: 'line',
+            columns: [
+                ['data2', 15, 100, 150, 366, 170, 230],
+            ]
+        });
+    }
 }
 
 
-// map.init();
+var giftie = {
+    init: function() {
+        var $wrapper = $('.js--giftie');
+        var $form = $('.js--giftie__form', $wrapper);
+        var $input = $('.js--giftie__input', $form);
+        var $innerWrap = $('.js--giftie__wrap', $wrapper);
+        $form.submit(function(){
+            // extract words, mix and match, retrieve information
+
+            // highlight the stuff
+            highlightText.highlightWords($input, ['Stijging', 'verkeer', 'Dutch Design week']);
+
+            // animate the stuff in
+            setInterval(function(){
+                $wrapper.addClass('is-active');
+                $innerWrap.addClass('is-active');
+            }, 300);
+        });
+
+        $input.focus(function(){
+            $innerWrap.addClass('is-focus');
+        }).focusout(function(){
+            $innerWrap.removeClass('is-focus');
+        });
+    }
+}
+
+var highlightText = {
+    init: function(){
+
+    },
+
+    highlightWords: function($element, words){
+        console.log($element);
+        $element.highlightTextarea({
+            color: '#bfe5dc',
+            words: words,
+            caseSensitive: false
+        });
+    }
+}
+
+
+map.init();
 pie.init();
+bar.init();
+highlightText.init();
+giftie.init();

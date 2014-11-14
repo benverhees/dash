@@ -4,12 +4,40 @@
 \*----------------------------------------------------------------------------*/
 
 .giftie {
-    background-color: $white;
+    background-color: #d7d7d7;
     @include rem(border-radius, $space-half/2);
+    transition-property: background-color, transform;
+    transition-duration: $default-duration-medium;
+    transform: scale(1, 1);
+
+    &.is-focus,
+    &.is-active {
+        transform: scale(1.05, 1.05);
+
+        &,
+        .giftie__input {
+            background-color: $white;
+        }
+
+    }
 }
+    .giftie__input-wrap {
+        position: relative;
+    }
+
     .giftie__input,
     .giftie__gift-dan {
         @include rem(padding, $space-half $space);
+        text-transform: none;
+    }
+
+    .giftie__input  {
+        background-color: #d7d7d7;
+        outline: none;
+    }
+
+    .giftie__input,
+    .giftie__gift-dan {
         @include font-size($alpha);
         border: none;
         @include rem(border-radius, $space-half/2 0 0 $space-half/2);
@@ -19,7 +47,7 @@
         background-color: transparent;
         color: $gray-b;
         transition-property: color, background-color;
-        transition-duration: $default-duration;
+        transition-duration: $default-duration-medium;
         @include rem(border-radius, 0 $space-half/2 $space-half/2 0);
     }
         .giftie__gift-dan__icon {
@@ -27,10 +55,14 @@
         }
 
 .giftie {
-    &:hover {
+    &.is-focus {
         .giftie__gift-dan {
             background-color: $brand;
             color: $white;
+        }
+        .giftie__highlight {
+            opacity: 0;
+            pointer-events: none;
         }
     }
 }

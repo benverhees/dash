@@ -1,0 +1,18 @@
+@charset "UTF-8";
+/*----------------------------------------------------------------------------*\
+    $TEXT
+\*----------------------------------------------------------------------------*/
+
+.highlight {
+    color: $brand;
+}
+
+.highlightTextarea .container {
+    height: 100%!important;
+    background: transparent!important;
+}
+
+.highlightTextarea {
+    text-transform: none;
+    letter-spacing: 0;
+}

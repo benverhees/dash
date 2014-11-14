@@ -11,6 +11,14 @@
     stroke: $white;
 }
 
+[class*="c3-line-"] {
+    stroke-width: 5px;
+}
+
+.country {
+    fill: $brand-sec !important;
+}
+
 
 .c3-arc-Consectetur-adipisicing {
     fill: $brand !important;
