@@ -4,6 +4,39 @@
 \*----------------------------------------------------------------------------*/
 
 .retain {
+    position: relative;
     @include rem(padding, 0 $space-half);
     margin: 0 auto;
 }
+
+
+.retain--separated {
+    &:before,
+    &:after {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background-color: $gray-b;
+        content: " ";
+    }
+    &:before {
+        left: (100%/3);
+    }
+    &:after {
+        left: ((100%/3)*2);
+    }
+}
+
+
+.wrappert {
+    width: 200%;
+    transition: transform $default-duration-medium;
+    &.is-shifted {
+        transform: translateX(-50%);
+    }
+}
+    .wrappert__cell {
+        width: 50%;
+        float: left;
+    }

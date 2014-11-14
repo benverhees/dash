@@ -99,7 +99,7 @@ var map = {
               })
               .on("mouseout",  function(d,i) {
                 tooltip.classed("hidden", true);
-              });          
+              });
         }
 
 
@@ -246,6 +246,7 @@ var bar = {
 
 var giftie = {
     init: function() {
+        var self = this;
         var $wrapper = $('.js--giftie');
         var $form = $('.js--giftie__form', $wrapper);
         var $input = $('.js--giftie__input', $form);
@@ -254,13 +255,19 @@ var giftie = {
             // extract words, mix and match, retrieve information
 
             // highlight the stuff
-            highlightText.highlightWords($input, ['Stijging', 'verkeer', 'Dutch Design week']);
+            var words = ['Stijging', 'verkeer', 'Dutch Design week'];
+            highlightText.highlightWords($input, words);
 
-            // animate the stuff in
-            setInterval(function(){
-                $wrapper.addClass('is-active');
-                $innerWrap.addClass('is-active');
-            }, 300);
+            var likeAMall = self.alsEenMalle($input.val(), words);
+            console.log(likeAMall);
+
+            if (likeAMall === false) {
+                // animate the stuff in
+                setInterval(function(){
+                    $wrapper.addClass('is-active');
+                    $innerWrap.addClass('is-active');
+                }, 300);
+            }
         });
 
         $input.focus(function(){
@@ -268,6 +275,22 @@ var giftie = {
         }).focusout(function(){
             $innerWrap.removeClass('is-focus');
         });
+    },
+
+    alsEenMalle: function(string){
+        var self = this;
+
+        var words = ['Gift ie', 'Geeft ie', 'Gift'];
+        var length = words.length;
+        while(length--) {
+            if (string.indexOf(words[length])!=-1) {
+                // one of the substrings is in yourstring
+                $('.js--wrappert').addClass('is-shifted');
+                return true;
+                break;
+            }
+        }
+        return false;
     }
 }
 
@@ -277,7 +300,6 @@ var highlightText = {
     },
 
     highlightWords: function($element, words){
-        console.log($element);
         $element.highlightTextarea({
             color: '#bfe5dc',
             words: words,
